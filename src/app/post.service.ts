@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, of } from 'rxjs';
 
 export interface Post{
   userId:number;
@@ -17,6 +18,8 @@ export class PostService {
 
   getPosts()
   {
-    return this.httpClient.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
+    return this.httpClient.get<Post[]>('https://jsonplaceholder.typicode.com/posts').pipe(
+      catchError((err)=>of([]))
+    )
   }
 }

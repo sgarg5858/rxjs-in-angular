@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Post, PostService } from '../post.service';
 
 @Component({
@@ -7,29 +7,15 @@ import { Post, PostService } from '../post.service';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss']
 })
-export class PostsComponent implements OnInit,OnDestroy {
+export class PostsComponent implements OnInit {
 
-  constructor(private postService:PostService) { }
+  constructor(public postService:PostService) { }
 
-  private subscription:Subscription = new Subscription();
+  posts$:Observable<Post[]> | null=null;
 
-  posts:Post[]|null=null;
   ngOnInit(): void {
-
-    this.subscription.add(
-      this.postService.getPosts().subscribe({
-        next:(posts:Post[])=>{
-          this.posts=posts;
-        },
-        error:(error)=>{
-          this.posts=[];
-        }
-      })
-    )
-
+  this.posts$ =  this.postService.getPosts();
   }
-  ngOnDestroy(): void {
-      this.subscription.unsubscribe();
-  }
+ 
 
 }

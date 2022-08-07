@@ -19,7 +19,8 @@ export class PostService {
   getPosts()
   {
     return this.httpClient.get<Post[]>('https://jsonplaceholder.typicode.com/poasts').pipe(
-      retryWhen((errors)=>
+      retryWhen((errors)=>{
+      console.log(errors);
       // concat(
       //   errors.pipe(
       //     delay(2000),
@@ -28,9 +29,9 @@ export class PostService {
       //   ),
       //   throwError(()=> new Error("Max tries exceeded!"))
       // )
-      errors.pipe(
+      return errors.pipe(
         concatMap((error,index)=>{
-          console.log(index);
+          console.log(error,index);
           if(index>2)
           {
             return throwError(()=>error);
@@ -38,7 +39,7 @@ export class PostService {
           else return of(error).pipe(delay(2000))
         })
       )
-      ),
+  }),
       catchError((err)=>{console.log(err);return of([])})
     )
   }

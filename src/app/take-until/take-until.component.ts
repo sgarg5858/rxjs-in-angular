@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { first, last, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-take-until',
@@ -14,7 +14,7 @@ export class TakeUntilComponent implements OnInit,OnDestroy {
   stop$=new Subject<string>();
 
   ngOnInit(): void {
-    this.myInput.valueChanges.pipe(takeUntil(this.stop$)).subscribe((val)=>{
+    this.myInput.valueChanges.pipe(last()).subscribe((val)=>{
       console.log(val);
     })
   }

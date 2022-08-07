@@ -9,6 +9,7 @@ import { SearchbarComponent } from './searchbar/searchbar.component';
 import { ForkJoinComponent } from './fork-join/fork-join.component';
 import { TakeUntilComponent } from './take-until/take-until.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CombineLatestAndZipComponent } from './combine-latest-and-zip/combine-latest-and-zip.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SearchbarComponent,
     ForkJoinComponent,
     TakeUntilComponent,
+    CombineLatestAndZipComponent,
   ],
   imports: [
     BrowserModule,

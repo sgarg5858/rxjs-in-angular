@@ -23,9 +23,10 @@ export class PostService {
       // concat(
       //   errors.pipe(
       //     delay(2000),
+      // //no of retries
       //     take(2)
       //   ),
-      //   throwError("Max tries exceeded!")
+      //   throwError(()=> new Error("Max tries exceeded!"))
       // )
       errors.pipe(
         concatMap((error,index)=>{
@@ -37,8 +38,7 @@ export class PostService {
           else return of(error).pipe(delay(2000))
         })
       )
-      )
-      ,
+      ),
       catchError((err)=>{console.log(err);return of([])})
     )
   }
